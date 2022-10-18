@@ -1,12 +1,28 @@
 {
   "name": "@watermark/core",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "纯前端水印生成方案",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "rollup --config rollup.config.mjs -w",
+    "build": "rollup --config rollup.config.js",
+    "initTs": "tsc --init"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "watermark"
+  ],
+  "files": [
+    "dist"
+  ],
+  "author": "GuoJiKun",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^9.0.1",
+    "rollup": "^3.2.3",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4"
+  }
 }

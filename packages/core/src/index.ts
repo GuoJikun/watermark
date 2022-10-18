@@ -1,24 +1,24 @@
 // 配置类型定义
-type imgOptions = {
-  //   宽度
+type Option = {
+  // 宽度
   width: number;
-  //   高度
+  // 高度
   height: number;
-  //   水印内容
+  // 水印内容
   content: string;
-  //   水印字体
+  // 水印字体
   font: string;
-  //   水印颜色
+  // 水印颜色
   color: string;
-  //   偏转角度（deg）
+  // 偏转角度（deg）
   rotateDegree: number;
-  //   X轴偏移量
+  // X轴偏移量
   x: number;
-  //   Y轴偏移量
+  // Y轴偏移量
   y: number;
 };
 
-function createImgBase(options: imgOptions) {
+function createImgBase(options: Option) {
   const canvas = document.createElement("canvas");
   const text = options.content;
   // 因为要实现文字交错效果，所以这里生成两倍宽度的图片
@@ -42,7 +42,7 @@ function createImgBase(options: imgOptions) {
 }
 
 // 配置类型
-type watermarkOptions = {
+export type watermarkOptions = {
   // 自定义类名
   className?: string;
   // 宽度
@@ -81,7 +81,7 @@ type watermarkOptions = {
  * @param {Number} left 距离左部位置
  * @param {Number} zIndex 水印层级
  */
-export function genWaterMark({
+export function createWatermark({
   className = "watermarked",
   width = 340,
   height = 240,
