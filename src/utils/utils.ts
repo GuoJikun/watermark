@@ -1,3 +1,7 @@
+export function format(first: string, middle: string, last: string): string {
+  return (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '');
+}
+
 // 配置类型定义
 type Option = {
   // 宽度
@@ -18,13 +22,13 @@ type Option = {
   y: number;
 };
 
-function createImgBase(options: Option) {
-  const canvas = document.createElement("canvas");
+export function createImgBase(options: Option) {
+  const canvas = document.createElement('canvas');
   const text = options.content;
   // 因为要实现文字交错效果，所以这里生成两倍宽度的图片
   canvas.width = options.width * 2;
   canvas.height = options.height;
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   if (ctx) {
     // X轴阴影距离，负值表示往上，正值表示往下
     ctx.shadowOffsetX = 2;
@@ -35,10 +39,10 @@ function createImgBase(options: Option) {
     ctx.font = options.font;
     ctx.fillStyle = options.color;
     ctx.rotate(options.rotateDegree);
-    ctx.textAlign = "left";
+    ctx.textAlign = 'left';
     ctx.fillText(text, options.x, options.y);
   }
-  return canvas.toDataURL("image/jpg");
+  return canvas.toDataURL('image/jpg');
 }
 
 // 配置类型
@@ -82,14 +86,14 @@ export type watermarkOptions = {
  * @param {Number} zIndex 水印层级
  */
 export function createWatermark({
-  className = "watermarked",
+  className = 'watermarked',
   width = 340,
   height = 240,
-  content = "水印",
-  font = "14px PingFang SC, sans-serif",
-  color = "rgba(156, 162, 169, 0.3)",
+  content = '水印',
+  font = '14px PingFang SC, sans-serif',
+  color = 'rgba(156, 162, 169, 0.3)',
   rotate = -14,
-  position = "absolute",
+  position = 'absolute',
   top = 0,
   left = 0,
   zIndex = 1000,
@@ -115,23 +119,23 @@ export function createWatermark({
     y: 340,
   });
 
-  let defaultStyle = document.createElement("style");
+  let defaultStyle = document.createElement('style');
   defaultStyle.innerHTML = `.${className}:after {
     content: '';
     display: block;
     width: 100%;
     height: 100%;
-    ${top || top === 0 ? `top: ${top}px;` : ""}
-    ${left || left === 0 ? `left: ${left}px;` : ""}
+    ${top || top === 0 ? `top: ${top}px;` : ''}
+    ${left || left === 0 ? `left: ${left}px;` : ''}
     background-repeat: repeat;
     pointer-events: none;
   }`;
 
-  let styleEl = document.createElement("style");
+  let styleEl = document.createElement('style');
   styleEl.innerHTML = `.${className}:after
   {
-    ${position ? `position: ${position}` : ""};
-    ${zIndex ? `z-index:${zIndex}` : ""};
+    ${position ? `position: ${position}` : ''};
+    ${zIndex ? `z-index:${zIndex}` : ''};
     background-image: url(${dataUri1}), url(${dataUri2});
     background-size: ${option.width * 2}px ${option.height}px;
   }`;
