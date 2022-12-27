@@ -7,9 +7,20 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface IvyWatermark {
+        "content": string;
+        "fontColor": string;
+        "fontFamily": string;
+        "fontSize": string;
+        "fontStyle": string;
+        "fontWeight": string;
+        "gapX": string;
+        "gapY": string;
+        "height": string;
+        "offsetX": string;
+        "offsetY": string;
+        "rotate": string;
+        "width": string;
         "zIndex": string;
-    }
-    interface UniWatermark {
     }
 }
 declare global {
@@ -19,26 +30,29 @@ declare global {
         prototype: HTMLIvyWatermarkElement;
         new (): HTMLIvyWatermarkElement;
     };
-    interface HTMLUniWatermarkElement extends Components.UniWatermark, HTMLStencilElement {
-    }
-    var HTMLUniWatermarkElement: {
-        prototype: HTMLUniWatermarkElement;
-        new (): HTMLUniWatermarkElement;
-    };
     interface HTMLElementTagNameMap {
         "ivy-watermark": HTMLIvyWatermarkElement;
-        "uni-watermark": HTMLUniWatermarkElement;
     }
 }
 declare namespace LocalJSX {
     interface IvyWatermark {
+        "content"?: string;
+        "fontColor"?: string;
+        "fontFamily"?: string;
+        "fontSize"?: string;
+        "fontStyle"?: string;
+        "fontWeight"?: string;
+        "gapX"?: string;
+        "gapY"?: string;
+        "height"?: string;
+        "offsetX"?: string;
+        "offsetY"?: string;
+        "rotate"?: string;
+        "width"?: string;
         "zIndex"?: string;
-    }
-    interface UniWatermark {
     }
     interface IntrinsicElements {
         "ivy-watermark": IvyWatermark;
-        "uni-watermark": UniWatermark;
     }
 }
 export { LocalJSX as JSX };
@@ -46,7 +60,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ivy-watermark": LocalJSX.IvyWatermark & JSXBase.HTMLAttributes<HTMLIvyWatermarkElement>;
-            "uni-watermark": LocalJSX.UniWatermark & JSXBase.HTMLAttributes<HTMLUniWatermarkElement>;
         }
     }
 }
