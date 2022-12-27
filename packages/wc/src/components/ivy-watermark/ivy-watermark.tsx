@@ -145,16 +145,6 @@ export class IvyWatermark {
   };
 
   componentDidLoad() {
-    // this.image = createImgBase({
-    //   width: 100,
-    //   height: 100,
-    //   content: '水印',
-    //   font: '14px PingFang SC, sans-serif',
-    //   color: 'rgba(156, 162, 169, 0.3)',
-    //   rotateDegree: (-14 * Math.PI) / 180,
-    //   x: 80,
-    //   y: 80,
-    // });
     writeTask(() => {
       this.renderWatermark();
     });
