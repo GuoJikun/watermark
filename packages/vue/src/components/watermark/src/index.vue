@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { CSSProperties, onMounted, ref, watchEffect } from "vue";
+import { CSSProperties, onMounted, reactive, ref, watch } from "vue";
 import { getPixelRatio, rotateWatermark } from "./utils";
 
 export default {
@@ -66,30 +66,23 @@ export default {
       watermarkRef = ref(null),
       backgroundSize = ref<string>();
 
-    const {
-      rotate = -22,
-      width,
-      height,
-      image,
-      content,
-      font = {},
-      gap = [100, 100] as Array<number>,
-      offset,
-    } = props;
+    const { offset } = props;
 
-    const {
-      color = "rgba(0,0,0,0.15)",
-      fontSize = 14,
-      fontWeight = "normal",
-      fontStyle = "normal",
-      fontFamily = "sans-serif",
-    } = font;
+    let font = {
+      color: "rgba(0,0,0,0.15)",
+      fontSize: 14,
+      fontWeight: "normal",
+      fontStyle: "normal",
+      fontFamily: "sans-serif",
+      ...props.font,
+    };
 
-    const [gapX, gapY] = gap as Array<number>;
-    const gapXCenter: number = gapX / 2;
-    const gapYCenter: number = gapY / 2;
-    const offsetLeft = (offset?.[0] as number) ?? gapXCenter;
-    const offsetTop = (offset?.[1] as number) ?? gapYCenter;
+    const gapX = ref<number>((props.gap[0] as number) || 100);
+    const gapY = ref<number>((props.gap[1] as number) || 100);
+    const gapXCenter = ref<number>(gapX.value / 2);
+    const gapYCenter = ref<number>(gapY.value / 2);
+    const offsetLeft = ref((offset?.[0] as number) ?? gapXCenter.value);
+    const offsetTop = ref((offset?.[1] as number) ?? gapYCenter.value);
 
     const getMarkStyle = () => {
       const markStyle: CSSProperties = {
@@ -100,8 +93,8 @@ export default {
       };
 
       /** 计算 offset */
-      let positionLeft = offsetLeft - gapXCenter;
-      let positionTop = offsetTop - gapYCenter;
+      let positionLeft = offsetLeft.value - gapXCenter.value;
+      let positionTop = offsetTop.value - gapYCenter.value;
       if (positionLeft > 0) {
         markStyle.left = `${positionLeft}px`;
         markStyle.width = `calc(100% - ${positionLeft}px)`;
@@ -120,15 +113,20 @@ export default {
     const getMarkSize = (ctx: CanvasRenderingContext2D) => {
       let defaultWidth = 120;
       let defaultHeight = 64;
-      if (!image && ctx.measureText) {
-        ctx.font = `${fontSize}px ${fontFamily}`;
-        const contents = Array.isArray(content) ? content : [content];
+      if (!props.image && ctx.measureText) {
+        ctx.font = `${font.fontSize}px ${font.fontFamily}`;
+        const contents = Array.isArray(props.content)
+          ? props.content
+          : [props.content];
         const widths = contents.map((item) => ctx.measureText(item!).width);
         defaultWidth = Math.ceil(Math.max(...widths));
         defaultHeight =
-          fontSize * contents.length + (contents.length - 1) * FontGap;
+          font.fontSize * contents.length + (contents.length - 1) * FontGap;
       }
-      return [width ?? defaultWidth, height ?? defaultHeight] as const;
+      return [
+        props.width ?? defaultWidth,
+        props.height ?? defaultHeight,
+      ] as const;
     };
 
     const fillTexts = (
@@ -139,13 +137,15 @@ export default {
       drawHeight: number
     ) => {
       const ratio = getPixelRatio();
-      const mergedFontSize = fontSize * ratio;
-      ctx.font = `${fontStyle} normal ${fontWeight} ${mergedFontSize}px/${drawHeight}px ${fontFamily}`;
-      ctx.fillStyle = color;
+      const mergedFontSize = font.fontSize * ratio;
+      ctx.font = `${font.fontStyle} normal ${font.fontWeight} ${mergedFontSize}px/${drawHeight}px ${font.fontFamily}`;
+      ctx.fillStyle = font.color;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.translate(drawWidth / 2, 0);
-      const contents = Array.isArray(content) ? content : [content];
+      const contents = Array.isArray(props.content)
+        ? props.content
+        : [props.content];
       contents?.forEach((item, index) => {
         const y = drawY + index * (mergedFontSize + FontGap * ratio);
         ctx.fillText(item ?? "", drawX, y);
@@ -155,7 +155,7 @@ export default {
     const setWatermark = (base64Url: string, markWidth: number) => {
       if (watermarkRef.value) {
         waterSrc.value = base64Url;
-        backgroundSize.value = `${(gapX + markWidth) * BaseSize}px`;
+        backgroundSize.value = `${(gapX.value + markWidth) * BaseSize}px`;
       }
     };
 
@@ -166,17 +166,17 @@ export default {
       if (ctx) {
         const ratio = getPixelRatio();
         const [markWidth, markHeight] = getMarkSize(ctx);
-        const canvasWidth = (gapX + markWidth) * ratio;
-        const canvasHeight = (gapY + markHeight) * ratio;
+        const canvasWidth = (gapX.value + markWidth) * ratio;
+        const canvasHeight = (gapY.value + markHeight) * ratio;
         canvas.setAttribute("width", `${canvasWidth * BaseSize}px`);
         canvas.setAttribute("height", `${canvasHeight * BaseSize}px`);
 
-        const drawX = (gapX * ratio) / 2;
-        const drawY = (gapY * ratio) / 2;
+        const drawX = (gapX.value * ratio) / 2;
+        const drawY = (gapY.value * ratio) / 2;
         const drawWidth = markWidth * ratio;
         const drawHeight = markHeight * ratio;
-        const rotateX = (drawWidth + gapX * ratio) / 2;
-        const rotateY = (drawHeight + gapY * ratio) / 2;
+        const rotateX = (drawWidth + gapX.value * ratio) / 2;
+        const rotateY = (drawHeight + gapY.value * ratio) / 2;
 
         const alternateDrawX = drawX + canvasWidth;
         const alternateDrawY = drawY + canvasHeight;
@@ -184,14 +184,19 @@ export default {
         const alternateRotateY = rotateY + canvasHeight;
 
         ctx.save();
-        rotateWatermark(ctx, rotateX, rotateY, rotate);
+        rotateWatermark(ctx, rotateX, rotateY, props.rotate);
 
-        if (image) {
+        if (props.image) {
           const img = new Image();
           img.onload = () => {
             ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
             ctx.restore();
-            rotateWatermark(ctx, alternateRotateX, alternateRotateY, rotate);
+            rotateWatermark(
+              ctx,
+              alternateRotateX,
+              alternateRotateY,
+              props.rotate
+            );
             ctx.drawImage(
               img,
               alternateDrawX,
@@ -203,11 +208,16 @@ export default {
           };
           img.crossOrigin = "anonymous";
           img.referrerPolicy = "no-referrer";
-          img.src = image;
+          img.src = props.image;
         } else {
           fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
           ctx.restore();
-          rotateWatermark(ctx, alternateRotateX, alternateRotateY, rotate);
+          rotateWatermark(
+            ctx,
+            alternateRotateX,
+            alternateRotateY,
+            props.rotate
+          );
           fillTexts(ctx, alternateDrawX, alternateDrawY, drawWidth, drawHeight);
           setWatermark(canvas.toDataURL("image/png"), markWidth);
         }
@@ -218,9 +228,14 @@ export default {
       renderWatermark();
     });
 
-    watchEffect(() => {
-      renderWatermark();
-    });
+    watch(
+      props,
+      (val) => {
+        font = { ...font, ...val.font };
+        renderWatermark();
+      },
+      { deep: true }
+    );
 
     return {
       waterSrc,

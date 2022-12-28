@@ -1,12 +1,26 @@
 <script setup lang="ts">
+import { onMounted, reactive, ref } from "vue";
 import { Watermark } from "./components/watermark";
+const content = ref("vue");
+const font = reactive({
+  color: "rgba(0,0,0,0.15)",
+  fontSize: 14,
+});
+onMounted(() => {
+  setTimeout(() => {
+    content.value = "hello vue";
+    font.color = "rgba(100,108,255,0.15)";
+    font.fontSize = 18;
+    console.log(content.value);
+  }, 1000 * 5);
+});
 </script>
 
 <template>
   <div></div>
   <Watermark
-    :content="['Vite', 'Vue']"
-    :font="{ color: 'rgba(100,108,255,0.15)', fontSize: 12 }"
+    :content="content"
+    :font="font"
     style="height: 60vh; width: 1000px"
   />
 </template>
