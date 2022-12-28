@@ -1,22 +1,17 @@
-/** converting camel-cased strings to be lowercase and link it with Separato */
-export function toLowercaseSeparator(key: string) {
-  return key.replace(/([A-Z])/g, '-$1').toLowerCase();
-}
-
-export function getStyleStr(style: Object): string {
-  return Object.keys(style)
-    .map(key => `${toLowercaseSeparator(key)}: ${style[key]};`)
-    .join(' ');
-}
-
-/** Returns the ratio of the device's physical pixel resolution to the css pixel resolution */
+/**获取缩放 */
 export function getPixelRatio() {
   return window.devicePixelRatio || 1;
 }
 
-/** Rotate with the watermark as the center point */
-export function rotateWatermark(ctx: CanvasRenderingContext2D, rotateX: number, rotateY: number, rotate: number) {
-  ctx.translate(rotateX, rotateY);
+/**
+ * 旋转水印
+ * @param ctx canvas对象
+ * @param translateX x轴的偏移量
+ * @param translateY y轴偏移量
+ * @param rotate 旋转角度
+ */
+export function rotateWatermark(ctx: CanvasRenderingContext2D, translateX: number, translateY: number, rotate: number) {
+  ctx.translate(translateX, translateY);
   ctx.rotate((Math.PI / 180) * Number(rotate));
-  ctx.translate(-rotateX, -rotateY);
+  ctx.translate(-translateX, -translateY);
 }

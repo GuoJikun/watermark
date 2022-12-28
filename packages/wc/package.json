@@ -9,10 +9,10 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/uni-watermark/uni-watermark.esm.js",
+  "unpkg": "dist/ivy-watermark/ivy-watermark.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/GuoJikun/watermark.git"
   },
   "files": [
     "dist/",

@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'uni-watermark',
+  namespace: 'ivy-watermark',
   outputTargets: [
     {
       type: 'dist',
@@ -9,9 +9,7 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
-    },
-    {
-      type: 'docs-readme',
+      autoDefineCustomElements: true,
     },
     {
       type: 'www',

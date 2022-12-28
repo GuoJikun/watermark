@@ -111,7 +111,7 @@ export class IvyWatermark {
       const drawHeight = markHeight * ratio;
       const rotateX = (drawWidth + parseFloat(this.gapX) * ratio) / 2;
       const rotateY = (drawHeight + parseFloat(this.gapY) * ratio) / 2;
-      /** Alternate drawing parameters */
+
       const alternateDrawX = drawX + canvasWidth;
       const alternateDrawY = drawY + canvasHeight;
       const alternateRotateX = rotateX + canvasWidth;
@@ -124,7 +124,7 @@ export class IvyWatermark {
         const img = new Image();
         img.onload = () => {
           ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-          /** Draw interleaved pictures after rotation */
+
           ctx.restore();
           rotateWatermark(ctx, alternateRotateX, alternateRotateY, parseFloat(this.rotate));
           ctx.drawImage(img, alternateDrawX, alternateDrawY, drawWidth, drawHeight);
@@ -135,7 +135,7 @@ export class IvyWatermark {
         img.src = this.image;
       } else {
         this.fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
-        /** Fill the interleaved text after rotation */
+
         ctx.restore();
         rotateWatermark(ctx, alternateRotateX, alternateRotateY, parseFloat(this.rotate));
         this.fillTexts(ctx, alternateDrawX, alternateDrawY, drawWidth, drawHeight);
