@@ -3,6 +3,17 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "main": "dist/watermark.umd.js",
+  "module": "dist/watermark.js",
+  "unpkg": "dist/watermark.umd.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuoJikun/watermark.git"
+  },
+  "files": [
+    "dist/",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",

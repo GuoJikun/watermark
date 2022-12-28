@@ -1,18 +1,30 @@
-# Vue 3 + TypeScript + Vite
+# ivy-watermark
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Recommended IDE Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<!-- Auto Generated Below -->
 
-## Type Support For `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Props
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+| prop| 描述 | 类型| 默认值|
+| ------------ | ----------- | -------- | ---------- |
+| content    |内容| string|string[] | |
+| font  |  [font](#font)   | object | rgba(0,0,0,0.15)|
+| gap       |间隔| array | [100, 100]|
+| width      |宽度| string | 100%|
+| height     |高度| string | 100%|
+| offset    |偏移| array | |
+| rotate     |水印的旋转角度| number | -22|
+| zIndex     |水印的层级| number | 9|
+| image     |图片url| string |  |
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## font
+| key     | 描述 | 类型| 默认值|
+| ------------ | ----------- | -------- | --------- |
+|fontFamily |字体| string | 'PingFang SC, sans-serif' |
+| fontSize   | 字体大小| number | 14|
+| fontStyle  |字体样式| string | 'normal'|
+| color  |字体颜色| string | 'normal'|
+| fontWeight |字体粗细| string | 'normal'|
+
