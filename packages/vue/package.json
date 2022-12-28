@@ -1,6 +1,6 @@
 {
   "name": "@jkun/watermark-vue",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "main": "dist/watermark.umd.js",
