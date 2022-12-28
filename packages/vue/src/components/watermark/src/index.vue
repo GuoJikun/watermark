@@ -142,7 +142,6 @@ export default {
       const mergedFontSize = fontSize * ratio;
       ctx.font = `${fontStyle} normal ${fontWeight} ${mergedFontSize}px/${drawHeight}px ${fontFamily}`;
       ctx.fillStyle = color;
-      console.log(color);
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.translate(drawWidth / 2, 0);

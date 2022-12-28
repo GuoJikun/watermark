@@ -1,8 +1,28 @@
-# ivy-watermark
+# Watermark 水印组件
 
+一个使用vue3开发水印组件
 
+## 安装
+
+```bash
+npm i @jkun/watermark-vue
+```
+
+## 使用
+
+```js
+import watermark from '@jkun/watermark-vue'
+import {createApp} from 'vue'
+createApp().use(watermark)
+```
+
+> 如果引入是umd 模块则无需手动引入css（@jkun/watermark-vue/dist/watermark.umd.js）
 
 <!-- Auto Generated Below -->
+
+## 示例
+
+[示例请查看](https://blog.jikun.dev/docs/watermark-vue.html)
 
 
 ## Props
