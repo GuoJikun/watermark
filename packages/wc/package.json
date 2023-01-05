@@ -1,6 +1,6 @@
 {
   "name": "@jkun/watermark",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -10,6 +10,14 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/ivy-watermark/ivy-watermark.esm.js",
+  "keywords": [
+    "watermark",
+    "web component",
+    "web-component",
+    "webComponent",
+    "水印",
+    "component"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/GuoJikun/watermark.git"
