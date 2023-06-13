@@ -1,14 +1,18 @@
-# Watermark 水印组件
+# Watermark
+
+水印组件
+
+## Watermark 水印组件
 
 一个使用 vue3 开发水印组件
 
-## 安装
+### 安装
 
 ```bash
 npm i @jkun/watermark-vue
 ```
 
-## 使用
+### 使用
 
 ```js
 import watermark from "@jkun/watermark-vue";
@@ -20,6 +24,28 @@ createApp().use(watermark);
 
 <!-- Auto Generated Below -->
 
+## ivy-watermark
+
+一个使用`stencil`开发`web component`水印组件
+
+### 安装
+
+```bash
+npm i @jkun/watermark
+```
+
+### 使用
+
+```js
+import watermark from "@jkun/watermark";
+import { createApp } from "vue";
+createApp().use(watermark);
+```
+
+## 示例
+
+[示例请查看](https://blog.jikun.dev/docs/watermark-vue.html)
+
 ## 示例
 
 [示例请查看](https://blog.jikun.dev/docs/watermark-vue.html)
@@ -27,8 +53,8 @@ createApp().use(watermark);
 ## Props
 
 | prop    | 描述           | 类型   | 默认值           |
-| ------- | -------------- | ------ | ---------------- | --- |
-| content | 内容           | string | string[]         |     |
+| ------- | -------------- | ------ | ---------------- |
+| content | 内容           | string | string[]         |
 | font    | [font](#font)  | object | rgba(0,0,0,0.15) |
 | gap     | 间隔           | array  | [100, 100]       |
 | width   | 宽度           | string | 100%             |
